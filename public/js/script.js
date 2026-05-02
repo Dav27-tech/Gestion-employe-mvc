@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
+  document.body.classList.add("page-loaded");
+
   const appShell = document.getElementById("appShell");
   const sidebarCollapse = document.getElementById("sidebarCollapse");
   const mobileSidebarToggle = document.getElementById("mobileSidebarToggle");
@@ -48,6 +50,36 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".sidebar__link").forEach((link) => {
     link.addEventListener("click", closeSidebar);
   });
+
+  const dashboardAnimatedItems = document.querySelectorAll(
+    ".dashboard-hero, .kpi-card, .dashboard-main > .panel, .dashboard-side > .panel"
+  );
+
+  dashboardAnimatedItems.forEach((item, index) => {
+    item.classList.add("reveal-on-scroll");
+    item.style.setProperty("--reveal-delay", `${Math.min(index * 70, 420)}ms`);
+  });
+
+  if ("IntersectionObserver" in window && dashboardAnimatedItems.length) {
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.16,
+        rootMargin: "0px 0px -70px 0px",
+      }
+    );
+
+    dashboardAnimatedItems.forEach((item) => revealObserver.observe(item));
+  } else {
+    dashboardAnimatedItems.forEach((item) => item.classList.add("is-visible"));
+  }
 
   const employeeSearch = document.getElementById("employeeSearch");
   const employeeRows = document.querySelectorAll(".employee-row");
