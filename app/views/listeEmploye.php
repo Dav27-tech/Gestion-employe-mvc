@@ -1,4 +1,5 @@
 <?php require __DIR__ . '/header.php'; ?>
+<?php $esc = fn($value) => htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8'); ?>
 <section class="table-card">
     <h2>Liste des employés</h2>
     <div class="table-toolbar">
@@ -24,18 +25,19 @@
                 <?php
                 if(!empty($data)){
                     foreach($data as $employe){  
+                        $id = $esc($employe['id'] ?? '');
                         echo'<tr class="employee-row"> 
-                        <td>'.$employe['nom'].'</td>
-                        <td>'.$employe['poste'].'</td>
-                        <td>'.($employe['sexe'] ?? '').'</td>
-                        <td>'.$employe['departement'].'</td>
-                        <td>$'.$employe['salaire'].'</td>
-                        <td>'.$employe['email'].'</td>
+                        <td>'.$esc($employe['nom'] ?? '').'</td>
+                        <td>'.$esc($employe['poste'] ?? '').'</td>
+                        <td>'.$esc($employe['sexe'] ?? '').'</td>
+                        <td>'.$esc($employe['departement'] ?? '').'</td>
+                        <td>$'.$esc($employe['salaire'] ?? '').'</td>
+                        <td>'.$esc($employe['email'] ?? '').'</td>
                         <td class="action-cell">'
-                        .'<a class="icon-btn icon-edit" href="?page=edit&id='.$employe['id'].'" title="Modifier">✎</a>'
+                        .'<a class="icon-btn icon-edit" href="?page=edit&id='.$id.'" title="Modifier">✎</a>'
                         .'<form class="delete-form" method="POST" onsubmit="return confirm(\'Êtes-vous sûr?\')">'
                         .'<input type="hidden" name="page" value="delete">'
-                        .'<input type="hidden" name="id" value="'.$employe['id'].'">'
+                        .'<input type="hidden" name="id" value="'.$id.'">'
                         .'<button class="icon-btn icon-delete" type="submit" title="Supprimer">🗑</button>'
                         .'</form>'
                         .'</td>
