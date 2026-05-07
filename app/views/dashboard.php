@@ -44,8 +44,8 @@ $initials = function ($name) {
 <section class="dashboard-hero">
     <div class="hero-copy">
         <span class="eyebrow">Aujourd’hui · <?php echo $currentDate; ?></span>
-        <h2>Bienvenue, gardez le pilotage RH clair et rapide.</h2>
-        <p>Suivez la croissance de l’équipe, les salaires, les départements et les actions importantes depuis une interface calme et précise.</p>
+        <h2>Bienvenue, pilotez vos équipes, sans effort .</h2>
+        <p>Gardez une vue nette sur vos effectifs, vos salaires et les décisions qui avancent.</p>
         <div class="hero-actions">
             <a class="btn btn-primary" href="?page=insererEmploye">Ajouter un employé</a>
             <a class="btn btn-secondary" href="?page=liste">Voir la liste</a>
