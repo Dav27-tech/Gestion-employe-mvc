@@ -24,7 +24,7 @@ foreach ($employees as $emp) {
     if (!$dt) continue;
     if ($dt->format('Y-m') === $currentMonthKey) $newThisMonth++;
 }
-$recentEmployees = array_slice($employees, 0, 5);
+$recentEmployees = array_slice($employees, (count($employees)-5), 5);
 $currentDate = date('d/m/Y');
 $esc = fn($value) => htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 $initials = function ($name) {
@@ -111,7 +111,6 @@ $initials = function ($name) {
             </div>
             <div class="growth-chart" aria-label="Graphique de croissance des employés">
                 <?php
-                // Build a dataset: prefer 'created_at' timeline; fallback to department counts
                 $hasCreated = false;
                 foreach ($employees as $e) {
                     if (isset($e['created_at'])) { $hasCreated = true; break; }
